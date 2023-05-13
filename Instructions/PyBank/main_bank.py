@@ -16,14 +16,14 @@ with open (csvpath) as csvfile:
         months.append(row[0])
         alist.append(row[1])
         blist.append(row[1])
-    print(str(len(months)))
+    #print(str(len(months)))
     #print(str(alist))
     
     #sum of all profit and losses
     total=0
     for amount in blist:
         total+= int(amount) 
-        print(total)
+        #print(total)
 
     total_str=str(total)
 
@@ -31,20 +31,20 @@ with open (csvpath) as csvfile:
 
     alist.pop(0)
     #could also write as: del alist[0]
-    print(str(blist))
-    print(str(alist))
+    #print(str(blist))
+    #print(str(alist))
     #print(str(alist))
     subtracted = []
     for i in range(len(alist)):
         item = int(alist[i]) - int(blist[i])
         subtracted.append(item)
-    print(subtracted)
+    #print(subtracted)
 
 
     netsubtracted=sum(subtracted)
-    print(netsubtracted)
+    #print(netsubtracted)
     averagepl=str(round(netsubtracted/len(subtracted),2))
-    print(averagepl)
+    #print(averagepl)
     #
  #The greatest increase in profits (date and amount) over the entire period
     greatest_amount=0
@@ -92,11 +92,17 @@ with open (csvpath) as csvfile:
             loc_least_amount=subtracted.index(x)
 
     month_least_increase=str(months[(loc_least_amount+1)])
-    print(f'month {month_least_increase} amount {least}')
+    #print(f'month {month_least_increase} amount {least}')
 
 #number of months in dataset
     number_months=str(len(months))
-    print(number_months)
+    #print(number_months)
+print('Financial Analysis')
+print(f'Total months {number_months}')
+print('Total:  $'+total_str)
+print('Average Change: $'+averagepl)
+print(f'Greatest Increase in Profits: {month_greatest_increase}  $ ({greatest_amount})')
+print(f'Greatest Decrease in Profits: {month_least_increase}  $ ({least})')
 
 with open ('analysis.txt','w') as f:
     f.write('Financial Analysis')

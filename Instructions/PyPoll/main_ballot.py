@@ -24,13 +24,13 @@ with open (csvpath) as csvfile:
             #canvote[Keyname]=value
         canvotes[newcandidate]+=1
 #prints keyname:keyvalue for each unique keynema 
-print(canvotes)
+#print(canvotes)
 
 numbercan=[]
 
 for name in canvotes:
     numbercan.append(canvotes[name])
-print(numbercan)
+#print(numbercan)
 
 percentages=[]
 y=0
@@ -40,15 +40,15 @@ for percent in (numbercan):
     if y<p:
         y=p
     p=0
-print(percentages)
-print(y)
+#print(percentages)
+#print(y)
 
-print(percentages.index(y))
+#print(percentages.index(y))
 
 #printout
 print("Election Results")
 print("-------------------------------")
-print("Total votes:"+str(total))
+print("Total Votes:"+str(total))
 list_candidates=[]
 for x in range(len(canoptions)):
     print(str(canoptions[x])+": "+str(percentages[x])+"% ("+str(numbercan[x])+")")

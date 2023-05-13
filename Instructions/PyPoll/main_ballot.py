@@ -2,7 +2,7 @@ import os
 import csv
 
 #csvpath=os.path.join("..","PyPoll","Resources","election_data.csv")
-csvpath=os.path.join("C:/Users/brant/Documents/Data Analysis Bootcamp/Module 3 Python/Starter_Code (1)/Instructions/PyPoll/Resources/election_data.csv")
+csvpath=os.path.join("Resources", "election_data.csv")
 canoptions=[]
 numberballots=[] 
 total=0
@@ -49,12 +49,34 @@ print(percentages.index(y))
 print("Election Results")
 print("-------------------------------")
 print("Total votes:"+str(total))
+list_candidates=[]
 for x in range(len(canoptions)):
     print(str(canoptions[x])+": "+str(percentages[x])+"% ("+str(numbercan[x])+")")
+    list_candidates.append(str(canoptions[x])+": "+str(percentages[x])+"% ("+str(numbercan[x])+")")
 print("Winner: "+ str(canoptions[percentages.index(y)]))
+winner=("Winner: "+ str(canoptions[percentages.index(y)]))
     
+with open ('analysis.txt','w') as f:
+    f.write('Election Results')
+    f.write('\n')
+    f.write('----------------------------')
+    f.write('\n')
+    f.write(f'Total Votes: {str(total)}')
+    f.write('\n')
+    f.write('----------------------------')
+    f.write('\n')
+    f.write(str(list_candidates[0]))
+    f.write('\n')
+    f.write(str(list_candidates[1]))
+    f.write('\n')
+    f.write(str(list_candidates[2]))
+    f.write('\n')
+    f.write('----------------------------')
+    f.write('\n')
+    f.write(str(winner))
+    f.write('\n')
+    f.write('----------------------------')
 
-        
 
     #print(total)
 

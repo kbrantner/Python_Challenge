@@ -1,13 +1,13 @@
 import os
 import csv
-months=[]
+
 csvpath=os.path.join("Resources", "budget_data.csv")
 
 #The total number of months included in the dataset
 with open (csvpath) as csvfile:
     csvreader=csv.reader(csvfile,delimiter=',')
     csvheader=next(csvfile)
-
+    months=[]
     alist=[]
 
     blist=[]
@@ -19,11 +19,13 @@ with open (csvpath) as csvfile:
     print(str(len(months)))
     #print(str(alist))
     
-    # sum of all profit and losses
-    # total=0
-    # for y in blist:
-    #     total+= int(y) 
-    #       print(total)
+    #sum of all profit and losses
+    total=0
+    for amount in blist:
+        total+= int(amount) 
+        print(total)
+
+    total_str=str(total)
 
 #The changes in "Profit/Losses" over the entire period, and then the average of those changes
 
@@ -32,7 +34,7 @@ with open (csvpath) as csvfile:
     print(str(blist))
     print(str(alist))
     #print(str(alist))
-    subtracted = list()
+    subtracted = []
     for i in range(len(alist)):
         item = int(alist[i]) - int(blist[i])
         subtracted.append(item)
@@ -41,21 +43,31 @@ with open (csvpath) as csvfile:
 
     netsubtracted=sum(subtracted)
     print(netsubtracted)
-    averagepl=round(netsubtracted/len(subtracted),2)
+    averagepl=str(round(netsubtracted/len(subtracted),2))
     print(averagepl)
     #
  #The greatest increase in profits (date and amount) over the entire period
-   
-    greatest=0
-    for x in blist:
-        if int(x) > int(greatest):
-            greatest=x
-    print(greatest)
+    greatest_amount=0
+    for x in subtracted:
+        if x>int(greatest_amount):
+            greatest_amount=x
+            loc_greatest_amount=subtracted.index(x)
+#index code help from https://stackoverflow.com/questions/27260811/python-find-position-of-element-in-array
+    month_greatest_increase=str(months[(loc_greatest_amount+1)])
+    
+    # print('this is the greatest'+str(greatest_amount))
+    # print('month'+str(month_greatest_increase))
+    # greatest=0
+    # for x in blist:
+    #     if int(x) > int(greatest):
+    #         greatest=x
+    # print(greatest)
 
-    for y in blist:
-        if greatest==y:
-            print("The greatest increase in profits was in "+row[0]+ " with the amount of $" +greatest)
-
+    # for y in blist:
+    #     if greatest==y:
+    #         print("The greatest increase in profits was in "+row[0]+ " with the amount of $" +greatest)
+    #         month_increase=str(row[0])
+    #         amount_increase=str(greatest)
     
     
     # rowline=0
@@ -74,14 +86,33 @@ with open (csvpath) as csvfile:
 
 #The greatest decrease in profits (date and amount) over the entire period
     least=0
-    for x in blist:
-        if int(x) < int(least):
+    for x in subtracted:
+        if x<int(least):
             least=x
-    print(least)
-with open ('test.txt','w') as f:
-    f.write(least)
+            loc_least_amount=subtracted.index(x)
+
+    month_least_increase=str(months[(loc_least_amount+1)])
+    print(f'month {month_least_increase} amount {least}')
+
+#number of months in dataset
+    number_months=str(len(months))
+    print(number_months)
+
+with open ('analysis.txt','w') as f:
+    f.write('Financial Analysis')
     f.write('\n')
-    f.write(least)
+    f.write('----------------------------')
+    f.write('\n')
+    f.write('Total Months: '+number_months)
+    f.write('\n')
+    f.write('Total:  $'+total_str)
+    f.write('\n')
+    f.write('Average Change: $'+averagepl)
+    f.write('\n')
+    f.write(f'Greatest Increase in Profits: {month_greatest_increase}  $ ({greatest_amount})')
+    f.write('\n')
+    f.write(f'Greatest Decrease in Profits: {month_least_increase}  $ ({least})')
+   
 
     # for row in alist:
     #   #  x=next(alist)
